@@ -1,0 +1,12 @@
+<% provide(:title, @user.username) %>
+
+
+<% if current_user?(@user) %>
+  <%= render 'your_profile' %>
+<% else %>
+  <%= render 'their_profile' %>
+<% end %>
+
+
+
+

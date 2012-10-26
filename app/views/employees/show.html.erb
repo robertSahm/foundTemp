@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Provider:</b>
+  <%= @employee.provider_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @employee.user_id %>
+</p>
+
+<p>
+  <b>Clearance:</b>
+  <%= @employee.clearance %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%= @employee.active %>
+</p>
+
+
+<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<%= link_to 'Back', employees_path %>

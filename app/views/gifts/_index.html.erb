@@ -1,0 +1,70 @@
+<% giver ||= nil %>
+<% tab_flag ||= nil %>
+<div id="giftIndexWrapper">
+  <% if tab_flag == 'buy' %>
+    <%= render 'gifts/tabs_buy' %>
+  <% else %>
+    <%= render 'gifts/tabs_activity' %>
+  <% end %>
+  <ul id="containerIsotope" class="allCellWrapper ">
+    <% @gifts.each do |gift| %>
+      <% if gift.status == "redeemed" %>
+        <li class="cellWrapper item completed">
+        <% status_class = "Completed" %>
+      <% else %>
+        <li class="cellWrapper item active">
+        <% status_class = "Active" %>
+      <% end %>
+      <div class="cellBackground<%= status_class %> borderRad2"></div>
+      <div class="cellContent"> 
+        <%= image_tag get_category_image(gift), {:class => 'iconListView'} %>
+        <div class="giftDescription">
+          <h2>
+            You bought
+            <%= gift.quantity %> <%= gift.item_name %>
+            for <%= gift.receiver_name %> at the venue <%= gift.provider_name %>.
+          </h2>
+        </div>
+
+          
+          <!--
+          <%= logo_from_id_for gift.provider_id %>
+          -->
+
+          
+
+        <% if tab_flag == "buy" %>
+         <div class="giverID">
+           <!--! <%= list_icon_with_id_for gift.receiver_id %> -->
+         </div> 
+         <% elsif !giver.nil?  %>
+        <div class="giverID">
+          <%= list_icon_with_id_for gift.giver_id %>
+          <h1 class="giverName"><%= gift.giver_name %></h1>
+        </div>
+        <% end %>
+        <div class="timeAgo">
+          <h3>
+            <%= time_ago_in_words(gift.created_at) %>&nbsp;ago
+          </h3>
+        </div>
+        <div class="bottomBox">
+          <% if tab_flag == "buy" %>
+          <% render 'gifts/buttons_buy', gift: gift %>
+          <% elsif giver.nil? %>
+          <%= render 'gifts/buttons_index', gift: gift %>
+          <% end %>
+        </div>
+      </div>
+
+<!--  <div class="badge1">
+        <span class="badge">*</span>
+      </div>
+       <div class="badge2">
+        <h2><%= gift.message %></h2>
+      </div> -->
+
+   
+    <% end %>
+  </ul>
+</div>

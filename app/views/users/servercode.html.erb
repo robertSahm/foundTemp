@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="span3">&nbsp;</div>
+  <div class="span6 borderBox">
+      <h1>Change Your Server Code</h1>
+
+      <%= simple_form_for @user do |f| %>
+        <%= f.error_notification %>
+        <%= render 'shared/error_messages' %>
+
+        <div class="form-horizontal">
+          <%= gravatar_for @user %>
+          <%= f.input :server_code, :input_html => { :maxlength => 4 } %>
+        </div>
+          <%= f.submit "Submit Server Code", :class => "btn" %>
+      <% end %>
+        <%= link_to '<- Back to Edit Profile', edit_user_path(@user) %>
+  </div>
+  <div class="span3"></div>
+</div>

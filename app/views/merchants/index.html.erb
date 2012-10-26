@@ -1,0 +1,21 @@
+<h2>Choose Establishment to sign into</h2>
+<table>
+  <tr>
+    <th>Logo</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Address</th>
+    <th></th>
+  </tr>
+
+  <% @providers.each do |provider| %>
+    <tr>
+      <td><%= logo_for(provider) %></td>
+      <td><%= link_to provider.name, provider %></td>
+      <td><%= provider.description %></td>
+      <td><%= provider.full_address %></td>
+      <td><%= button_to "Log In", merchant_path(provider),method: :get, :class => 'btn btn-large btn-info'%>
+      </td>
+    </tr>
+  <% end %>
+</table>

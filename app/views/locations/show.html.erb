@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Latitude:</b>
+  <%= @location.latitude %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @location.longitude %>
+</p>
+
+<p>
+  <b>Provider:</b>
+  <%= @location.provider_id %>
+</p>
+
+<p>
+  <b>Foursquare:</b>
+  <%= @location.foursquare_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @location.user_id %>
+</p>
+
+<p>
+  <b>Foursquare venue:</b>
+  <%= @location.foursquare_venue_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_location_path(@location) %> |
+<%= link_to 'Back', locations_path %>

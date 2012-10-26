@@ -1,0 +1,69 @@
+<% giver ||= nil %>
+<% tab_flag ||= nil %>
+<div id="giftIndexWrapper">
+
+  <% if tab_flag == 'buy' %>
+    <%= render 'gifts/tabs_buy' %>
+  <% else %>
+    <%= render 'gifts/tabs_activity' %>
+  <% end %>
+  
+  <ul id="containerIsotope" class="allCellWrapper">
+    <% gifts.each do |gift| %>
+      <% if gift.status == "redeemed" %>
+    <li class="cellWrapper item completed">
+        <% status_class = "Completed" %>
+      <% else %>
+    <li class="cellWrapper item active">
+        <% status_class = "Active" %>
+      <% end %>
+      <div class="cellBackground1 borderRad1"></div>
+      <div class="cellBackground<%= status_class %> borderRad2"</div>
+      <div class="cellContent">  
+        <div class="giftDescription">
+          <div class="backgroundMiniCell"></div>
+          <%= image_tag get_category_image(gift), {:class => '  iconListView'} %>
+          <h2>
+            <%= gift.quantity %>
+            <%= gift.item_name %>
+          </h2>
+        </div>
+        <div class="providerInfo">
+          <div class="backgroundMiniCell"></div>
+          <%= custom_image_tag(gift.provider,75,75) %>
+          <h2 class="bigAt">@</h2>
+          <h2 class="providerText"><%= gift.provider_name %></h2>
+        </div>
+          <% if !giver.nil? %>
+        <div class="giverID">
+          <%= list_icon_with_id_for gift.giver_id %>
+          <h1 class="giverName"><%= gift.giver_name %></h1>
+        </div>
+          <% end %>
+        <div class="giverID">
+          <%= list_icon_with_id_for gift.receiver_id %>
+          <h1 class="giverName"><%= gift.receiver_name %></h1>
+        </div>
+        <div class="timeAgo">
+          <h1>
+            <%= time_ago_in_words(gift.created_at) %>&nbsp;ago
+          </h1>
+        </div>
+      </div>
+      <div class="badge1">
+        <span class="badge">*</span>
+      </div>
+      <div class="badge2">
+        <h2><%= gift.message %></h2>
+      </div>
+      <% if tab_flag == "buy" %>
+        <%= render 'gifts/buttons_buy', gift: gift %>
+      <% elsif giver.nil? %>
+        <%= render 'gifts/buttons_index', gift: gift %>
+      <% end %> 
+    </li>
+    <% end %>
+  </ul>
+</div>
+
+

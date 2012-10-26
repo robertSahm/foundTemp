@@ -1,0 +1,32 @@
+
+<div class="completedWrapper">
+  <h2>
+    Thank you!
+  </h2>
+  <h2>
+    - The Drinkboard Staff
+  </h2>
+  <h2>
+    <%= time_ago_in_words(@gift.created_at) %>&nbsp;ago
+  </h2>
+  
+  <div class="">
+    <%= list_icon_for @giver %>
+  </div>
+  <h2>
+    <%= @gift.giver_name %> 
+  </h2>
+  <h2>
+    bought
+    <%= @gift.quantity %> <%= @gift.item_name %>
+  </h2>
+  <h2>
+    For:
+    <%= list_icon_for @receiver %>
+    <%= @gift.receiver_name %>
+    <%= logo_from_id_for @gift.provider_id %>
+    @ <%= @gift.provider_name %>
+    Redeemed on <%= @order.created_at.to_formatted_s(:rfc822)  %>
+    By server: <%= @server.username %>&nbsp;<%= list_icon_for @server %>
+  </h2>
+</div>

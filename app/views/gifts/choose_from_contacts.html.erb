@@ -1,0 +1,33 @@
+<h2>
+  the Gift is:
+  <%= @item.item_name %>
+  $<%= @price %>
+  <br />
+  to be redeemed at:
+  <br />
+  <%= logo_for @provider %>
+  <%= @provider.name %>
+  "<%= @provider.description %>"
+  <%= @provider.full_address %>
+</h2>
+
+<table class="table listed">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Network</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= list_icon_for user %></td>
+      <td><%= link_to user.username, '#' %></td>
+      <td><%= user.following?(current_user) ? 'You are following' : 'doesnt follow you' %></td>
+      <td><%= button_to "Select", bill_gifts_path(receiver_id: user.id, provider_id: @provider.id, item_id: @item.id, price: @price) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

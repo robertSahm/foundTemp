@@ -1,0 +1,11 @@
+<h1>
+  <%= gravatar_for @user %>
+  <%= @user.username %>
+</h1>
+<%= render 'shared/stats' %> 
+<% if current_user.following?(@user) %>
+    <%= render 'unfollow' %> 
+<% else %>  
+    <%= render 'follow' %>  
+<% end %>   
+<%= render 'profile_drinkboard' %>

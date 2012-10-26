@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h4><%= list_icon_with_id_for @gift.receiver_id %> <%= @gift.receiver_name %><span> has been gifted </span></h4>
+<h4><%= @gift.quantity %> <%= @gift.item_name %></h4>
+
+<% if @redeem %>
+  <h1>Enter Customer Redeem Code : <%= @redeem.redeem_code %></h1>
+
+  <%= simple_form_for @order do |f| %>
+    <%= f.error_notification %>
+    <% if @order.errors.any? %>
+      <div id="error_explanation">
+        <div class="alert alert-error">
+          The form contains <%= pluralize(@order.errors.count, "error") %>.
+        </div>
+        <ul>
+          <% @order.errors.full_messages.each do |msg| %>
+            <li>* <%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-horizontal">
+      <%= f.hidden_field :redeem_id  %>
+      <%= f.hidden_field :gift_id  %>
+      <%= f.hidden_field :server_id  %>
+      <%= f.hidden_field :provider_id  %>
+      <%= f.input :redeem_code, :input_html => { :maxlength => 4 } %>
+    </div>
+      <%= f.submit "Submit", :class => "btn" %>
+  <% end %>
+<% else %>
+  <h4>Customer has not Redeemed Gift on their Account yet</h4>
+<% end %>
+<h4>Your 4-digit Server Code is: 
+  <a href="#" class="btn btn-large btn-primary disabled"><%= current_user.server_code || 'please set your server code' %></a>
+  <hr />
+</h4>
+
+<%= button_to 'Not Now', orders_merchant_path(@provider), method: :get %>
+
+

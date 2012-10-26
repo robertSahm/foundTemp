@@ -1,0 +1,331 @@
+ <!-- TODO
+  t.string   "credit_card",          form
+  t.text     "message"               form
+  t.text     "special_instructions"  n/a
+  t.integer  "redeem_id"              n/a
+  add text field for the message
+  add hidden div off click button for credit cards ? -->
+
+<div class="giftsBillWrapper">
+  <!-- <form accept-charset="UTF-8" action="<%= gifts_path %>" class="new_gift" method="post" name="new_gift" id="new_gift"> -->
+  <%= form_for @gift do |f| %>
+  <%= f.hidden_field :giver_id  %>
+  <%= f.hidden_field :giver_name  %>
+  <%= f.hidden_field :receiver_id  %>
+  <%= f.hidden_field :receiver_name  %>
+  <%= f.hidden_field :receiver_phone  %>
+  <%= f.hidden_field :item_id  %>
+  <%= f.hidden_field :item_name  %>
+  <%= f.hidden_field :provider_name  %>
+  <%= f.hidden_field :provider_id  %>
+  <%= f.hidden_field :price  %>
+  <%= f.hidden_field :category  %>
+  <div class="billHeader">
+    <h2>
+    Order Details for:
+    </h2>
+  </div>
+
+  <!-- <label>
+    <h2><%= list_icon_with_id_for @gift.receiver_id %>
+  </label> -->
+  <label name="gift[receiver_name]" class="label" >
+    <h2 class="receiverName"><span class="h2Highlight"><%= @gift.receiver_name %></span></h2></label>
+  <span><%= User.find(@gift.receiver_id).handle %></span>
+  <label for="provider" class="label">
+    <h2>Location:</h2></label>					    
+  <!-- <label><%= logo_from_id_for @gift.provider_id %></label> -->
+  <label name="gift[provider_name]" class="label" >
+    <h2><span class="h2Highlight"><%= @gift.provider_name %></span></h2>
+    <h2><span class="h2Highlight"><%= @gift.provider.full_address %></span></h2>
+  </label>
+  <label for="item" class="label">
+    <h2>Item:</h2>
+  </label>
+  <!-- <label>
+    <%= image_tag get_category(@gift.category), {:class => 'iconListView'} %>
+  </label> -->
+  <label name="receiver" class="label">
+    <h2>
+      <span class="h2Highlight">
+        <%= @gift.item_name %> - 
+        $<%= @gift.price %>
+      </span>
+    </h2>
+  </label>
+  
+  <h2 class="quantityButtons">
+    Quantity:
+    <button class=" <%= @disabled %>" type="button" id="decreaseQ">
+      <h2>-</h2>
+    </button>
+    <input name="gift[quantity]" class="" id="quantityAmount" type="text" />
+    <button class="" type="button" id="increaseQ">
+      <h2>+</h2>
+    </button>
+  </h2>
+
+
+
+  <h2>
+    Local Sales Tax: <%= @provider.sales_tax.to_f %>%
+  </h2>
+  <h2>
+    <span id="taxAmount" class="label">
+      Calculating...
+    </span> 
+  </h2>
+  <%= f.hidden_field :tax , id: "taxInput" %>
+  <label for="subTotal" class="label">
+    <h2>
+      SubTotal:
+    </h2>
+  </label>
+  <h2>
+  <label for="subTotalAmount" id="subTotalAmount" class="label">
+    Calculating...
+  </label>
+  </h2>
+  <h2>
+    <div class="input-append" data-toggle="buttons-radio">
+      Tip:
+      <button type="button" class=" tip" id="perItem">
+        $1 per
+      </button>
+      <button type="button" class=" tip" id="fifteenPrecent">
+        15%
+      </button>
+      <button type="button" class=" tip" id="twentyPercent">
+        20%
+      </button>
+    </div>
+  </h2>
+    <h2>
+      $&nbsp;
+      <input name="gift[tip]" class="" id="tip" type="text" value="Choose Tip Amount"/>
+    </h2>
+    <h2 class="totalAmount">
+      <label for="total" class="label">
+        Total:
+      </label>
+      <label for="total" class="label" id="totalAmount">
+       
+      </label>
+    </h2>
+    <h2>
+      Leave a message
+      <input name="gift[message]" id="message" type="text" placeholder="Leave a message..."/>
+      <%= f.hidden_field :total , id: "totalInput" %>  
+      <!-- <input class=" -large -info disabled" type="submit" name="submit" id="submit" value="Please Leave a Tip"/> --> 
+      <%= submit_tag "Please Leave a Tip", :class => "disabled button", :id => "submit", :disabled => 'disabled' %>
+      <!-- </form> -->
+      <% end %>
+    </h2>
+
+</div>
+
+<script type="text/javascript">
+  // //                              embed data from server              //
+  var price = <%= @gift.price.to_i %>;
+  var quantity = <%= @gift.quantity  %>;
+  var sales_tax = <%= @provider.sales_tax.to_f %>;
+  var preTaxTotal = price * quantity;
+  var subTotal = calcSubTotal(preTaxTotal, sales_tax);
+  
+  $(function() {
+    
+    //                           initialize form                        //
+    $('#quantityAmount').val(quantity);
+    $(':input#tip').val('Choose Tip Amount');
+    calcSubTotal(preTaxTotal, sales_tax);
+  
+    //                           set event handlers                     //
+    $('#increaseQ').click(function() {
+      quantity ++;
+      changeQuantity(price, quantity, sales_tax, true);
+      changeTotalsFromQuantity();
+    });
+    $('#decreaseQ').click(function() {
+      if (!$(this).hasClass('disabled')) {
+        quantity --;
+        changeQuantity(price, quantity, sales_tax, true);
+        changeTotalsFromQuantity();
+      }
+    });
+    $('#perItem, #fifteenPrecent, #twentyPercent').click(function() {
+      calcTip($(this).text());
+    });
+    
+    //                           set input field events                      //
+    $(':input#quantityAmount').blur(function() {
+      var fieldValue = $(this).val();
+      if (isNaN(fieldValue)) {
+        alert('please supply a number');
+        $(this).val(quantity);
+      }
+      if (fieldValue < 1) {
+        alert('please supply a number - 1 or more');
+        $(this).val(quantity);
+      }
+      if (fieldValue >= 1) {
+        //round unwanted user entered decimels
+        quantity = formatQuantity(fieldValue);
+        $(':input#quantityAmount').val(quantity);
+        changeQuantity(price, quantity, sales_tax, false);
+        changeTotalsFromQuantity();
+        //$(':input#tip').focus();        
+      }
+      return false;
+    });
+    
+    $(':input#quantityAmount').keypress(function(e) {      
+      // Detect Enter
+      if(e.which === 13){ 
+        $(this).blur();
+        $(this).preventDefault();
+        return false;
+      }     
+    });
+    
+    $(':input#tip').focus(function() {
+      var field = $(this);
+      if (field.val()=='Choose Tip Amount') {
+        field.val('');
+      }
+    });
+    
+    $(':input#tip').blur(function() {
+      var fieldValue = $(this).val();
+      // if field is not changed should it change the tip buttons?
+      if (isNaN(fieldValue)) {
+        $(this).val('Choose Tip Amount');
+        resetSubmitButton();
+        alert('please supply a number');
+      }
+      if (fieldValue < 1) {
+        $(this).val('Choose Tip Amount');
+        resetSubmitButton();
+        alert('please supply a number - 1 or more');
+      }
+      if (fieldValue >= 1) {
+        // round user entered decimels beyond 2 digits
+        formattedFieldValue = formatCurrency(fieldValue);
+        $(':input#tip').val(formattedFieldValue);
+        calcTotal(parseFloat(formattedFieldValue));
+        $(':button').removeClass('active');
+      }
+      return false;
+    });
+    
+    $(':input#tip').keypress(function(e) {      
+      // Detect Enter
+      if(e.which === 13){ 
+          $(this).blur();
+          $(this).preventDefault(); 
+          return false;
+      }     
+    }); 
+  }); // end document ready function
+  
+  //                             calculate field values                     //
+  function changeTotalsFromQuantity() {
+    if ($(':button.active').text()) {
+      var button = $(':button.active').text();
+      calcTip(button);
+    } else {
+      if (!isNaN($('#tip').val())) {
+        var tipAmount = parseFloat($('#tip').val());
+        calcTotal(tipAmount);
+      }
+    }
+  };
+  
+  function calcTip(button) {
+    if (button=='20%') {
+      tipAmount = subTotal * 0.20;
+    }
+    if (button=='15%') {
+      tipAmount = subTotal * 0.15;
+    }
+    if (button=='$1 per') {
+      tipText = $('#quantityAmount').val();
+      tipAmount = parseFloat(tipText);
+    }
+    $(':input#tip').val(formatCurrency(tipAmount));
+    calcTotal(tipAmount);
+  };
+  
+  function calcTotal(tipAmount) {
+    total = subTotal + tipAmount;
+    $('label#totalAmount.label').text('$ ' + formatCurrency(total));
+    $(':input#totalInput').val(formatCurrency(total));
+    $(':input#submit').val('Click Here to Send Gift');
+    $(':input#submit').removeClass('disabled');
+    $(':input#submit').removeAttr('disabled');            
+  };
+  
+  function calcSubTotal(preTaxTotal, sales_tax) {
+    var taxAmount   = (preTaxTotal * sales_tax)/100;
+    $('span#taxAmount.label').text('$ ' + formatCurrency(taxAmount));
+    $(':input#taxInput').val(formatCurrency(taxAmount));
+    subTotal = preTaxTotal + taxAmount;
+    $('label#subTotalAmount.label').text('$ ' + formatCurrency(subTotal));
+  };
+  
+  function changeQuantity(price, quantity, sales_tax, button) {
+      var preTaxTotal = price * quantity; 
+      // add updated quantity to input field for -/+ buttons
+      if (button) {
+        $('#quantityAmount').val(quantity);        
+      }
+      // enable/disable the quantity minus button
+      controlDecreaseQ(); 
+      // re-run calSubTotal with new preTotal and sales tax
+      calcSubTotal(preTaxTotal, sales_tax);     
+  };
+  
+  //                            set button behaviors                     //    
+  function controlDecreaseQ() {
+      if (quantity == 1) {
+        $('#decreaseQ').addClass('disabled');
+      }
+      if ((quantity > 1) && $('#decreaseQ').hasClass('disabled')) {
+        $('#decreaseQ').removeClass('disabled');
+      }
+  };
+  
+  function resetSubmitButton() {
+    $(':input#submit').val('Please Leave a Tip');
+    $(':input#submit').addClass('disabled');
+    $(':input#submit').attr('disabled', 'disabled');  
+    $(':button').removeClass('active');
+  };
+  
+  //                                format numbers                     //
+  function formatCurrency(num) {
+      num = isNaN(num) || num === '' || num === null ? 0.00 : num;
+      return parseFloat(num).toFixed(2);
+  }
+  
+  function formatQuantity(num) {
+      num = isNaN(num) || num === '' || num === null ? 0.00 : num;
+      return parseFloat(num).toFixed(0);
+  }
+  
+</script>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+    
+

@@ -1,0 +1,41 @@
+<!-- <div class="center">
+<table>
+  <thead>
+      <tr>
+        <th colspan="6">Who's About</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= gravatar_for user %></td>
+          <td><%= link_to user.username, user %></td>
+          <td><%= user.full_address %></td>
+          <td><%= number_to_phone user.phone %>
+          <td></td>
+          <td><%= button_to "Send them a Drink", browse_with_contact_gifts_path(id: user.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div> -->
+<div class="center">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @fb_users.each do |fbu| %>
+        <tr>
+          <td><%= fbu["name"] %></td>
+          <td><%= fbu["id"] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+

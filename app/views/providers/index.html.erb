@@ -1,0 +1,21 @@
+<table>
+  <tr>
+    <th colspan="4">Check Out Locations</th>
+  </tr>
+  <tr>
+    <th>Logo</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Address</th>
+  </tr>
+
+  <% @providers.each do |provider| %>
+    <tr>
+      <td><%= logo_for(provider) %></td>
+      <td><%= link_to provider.name, provider %></td>
+      <td><%= provider.description %></td>
+      <td><%= provider.full_address %></td>
+    </tr>
+  <% end %>
+</table>
+

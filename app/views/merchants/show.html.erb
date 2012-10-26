@@ -1,0 +1,60 @@
+<h2><%= @provider.name %></h2>
+<%= logo_for @provider %>
+<h4><%= @provider.description %></h4>
+<h4><%= @provider.full_address %></h4>
+
+<div class="center">
+  <ul id="myTab" class="nav nav-tabs">
+    <li class="active"><a href="#panel" data-toggle="tab">Navigation</a></li>
+    <li><a href="#drinkboard" data-toggle="tab">Drinkboard</a></li>
+    <li><a href="#menu" data-toggle="tab">Menu</a></li>
+    <li><a href="#activity" data-toggle="tab">Activity</a></li>
+  </ul>
+    <div id="myTabContent" class="tab-content">
+      <div class="tab-pane fade in active" id="panel">
+        <%= link_to "Message Center", '#' %>                       |
+        <%= link_to "Customers", customers_merchant_path(@provider) %> |
+        <%= link_to "Orders", orders_merchant_path(@provider) %> |
+        <%= link_to "Search", '#' %>                               |
+        <%= link_to "Reports", '#' %>                              |
+        <%= link_to "Staff", staff_merchant_path(@provider) %>                                |
+        <%= link_to "Settings", '#' %>
+      </div>
+      <div class="tab-pane fade" id="drinkboard">
+
+        <%= render 'gifts/index', gifts: @gifts %>
+
+
+      </div>
+      <div class="tab-pane fade" id="activity">
+        <p>Recent Activity At Location</p>
+      </div>
+      <div class="tab-pane fade" id="menu">
+        <table class="table listed">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Name</th>
+              <th>Detail</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @menu.each do |m| %>
+              <% item = m[0] %>
+              <% price = m[1] %>
+            <tr>
+              <td><%= image_tag get_category_from_item(item), {:class => 'iconListView'} %></td>
+              <td><%= item.item_name %></td>
+              <td><%= item.detail %></td>
+              <td><%= price %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>       
+      </div>
+    </div>
+  </div>
+
+
+

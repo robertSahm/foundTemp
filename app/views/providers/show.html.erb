@@ -1,0 +1,82 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= @provider.name %></h2>
+<%= logo_for @provider %>
+<h4><%= @provider.description %></h4>
+<h4><%= @provider.full_address %></h4>
+<%= link_to 'Back to Places', providers_path %>
+<div class="bs-docs-example">
+  <ul id="myTab" class="nav nav-tabs">
+    <li class="active"><a href="#drinkboard" data-toggle="tab">Drinkboard</a></li>
+    <li><a href="#menu" data-toggle="tab">Menu</a></li>
+    <li><a href="#activity" data-toggle="tab">Activity</a></li>
+  </ul>
+    <div id="myTabContent" class="tab-content">
+      <div class="tab-pane fade in active" id="drinkboard">
+        <table class="table listed">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th colspan="2">To</th>
+              <th colspan="2">From</th>
+              <th></th>
+              <th>Drink</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @gifts.each do |gift| %>
+            <tr>
+              <td><%= time_ago_in_words(gift.created_at) %>&nbsp;ago</td>
+              <td colspan="2">
+                <%= list_icon_with_id_for gift.receiver_id %>
+                <%= gift.receiver_name %>
+              </td>
+              <td colspan="2">
+                <%= list_icon_with_id_for gift.giver_id %>
+                <%= gift.giver_name %>
+              </td>
+              <td colspan="2">
+                <%= image_tag get_category_image(gift), {:class => 'iconListView'} %>
+                <%= gift.quantity %>&nbsp;<%= gift.item_name %>
+              </td>
+              <td><%= gift.message %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="activity">
+        <p>Recent Activity At Location</p>
+      </div>
+      <div class="tab-pane fade" id="menu">
+        <table class="table listed">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Name</th>
+              <th>Detail</th>
+              <th>Price</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @menu.each do |m| %>
+              <% item = m[0] %>
+              <% price = m[1] %>
+            <tr>
+              <td><%= image_tag get_category_from_item(item), {:class => 'iconListView'} %></td>
+              <td><%= item.item_name %></td>
+              <td><%= item.detail %></td>
+              <td><%= price %></td>
+              <td><%= button_to "Select", choose_from_contacts_gifts_path(provider_id: @provider.id, item_id: item.id, price: price) %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>       
+      </div>
+    </div>
+  </div>
+
+
+

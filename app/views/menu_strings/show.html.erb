@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Version:</b>
+  <%= @menu_string.version %>
+</p>
+
+<p>
+  <b>Provider:</b>
+  <%= @menu_string.provider_id %>
+</p>
+
+<p>
+  <b>Menu:</b>
+  <%= @menu_string.menu_id %>
+</p>
+
+<p>
+  <b>Full address:</b>
+  <%= @menu_string.full_address %>
+</p>
+
+<p>
+  <b>Menu:</b>
+  <%= @menu_string.menu %>
+</p>
+
+
+<%= link_to 'Edit', edit_menu_string_path(@menu_string) %> |
+<%= link_to 'Back', menu_strings_path %>

@@ -1,0 +1,119 @@
+<p id="notice"><%= notice %></p>
+
+<%= list_icon_for @giver %> <%= @gift.giver_name %> 
+
+bought you 
+
+<%= @gift.quantity %> <%= @gift.item_name %>
+
+<%= logo_from_id_for @gift.provider_id %>
+
+located at <%= @gift.provider_name %>
+
+<% if @gift.message %>
+Message:
+<%= @gift.message %>
+<% end %>
+
+
+<%= button_to "Send them a Drink", browse_with_contact_gifts_path(id: @gift.giver_id), :class => "btn" %>
+<%= button_to 'Not Now', gifts_path, method: :get %>
+
+Give this code to your server to Redeem: 
+<a href="#" class="btn btn-large btn-primary disabled"><%= @redeem.redeem_code %></a>
+
+Server's phone unavailable?
+<button type="button" class="btn btn-large btn-success" id="merchant_redeem">
+  Enter Server Code
+</button>
+<div id="servers">
+  Choose Your Server
+  <% @servers.each do |user| %>
+  <div id="<%= user.id %>">
+    <%= gravatar_for user %>
+    <%= user.username %>
+    <%= user.server_code %>
+    <button type="button" class="btn choose_server" id="<%= user.id %>" name="<%= user.username %>">
+      Choose
+    </button>
+  </div>
+  <% end %>
+</div>
+<div id="server_code_field">
+  <%= simple_form_for @order do |f| %>
+  <%= f.error_notification %>
+  <% if @order.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-error">
+      The form contains <%= pluralize(@order.errors.count, "error") %>.
+    </div>
+    <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+      <li>* <%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+  <div class="form-horizontal">
+    <%= f.hidden_field :redeem_id  %>
+    <%= f.hidden_field :gift_id  %>
+    <%= f.hidden_field :server_id  %>
+    <%= f.hidden_field :provider_id  %>
+    <%= f.input :server_code, :input_html => { :maxlength => 4 } %>
+  </div>
+  <%= f.submit "Submit Server Code", :class => "btn" %>
+  <% end %>
+  <div>
+    <button type="button" class="btn btn-large btn-success" id="servers_back_button">
+      Choose Another Server
+    </button>
+  </div>
+</div>
+
+<script>
+  var a = $('#order_server_id');
+
+  $(function() {
+    $('#servers, #server_code_field').hide();
+    $('#merchant_redeem').click(function() {
+      if (!$(this).hasClass('disabled')) {
+        if ($(this).text()=="Enter Server Code") {
+          $('#servers').slideDown('fast');
+          $(this).text("Hide Servers");
+        } else {
+          $('#servers').slideUp('fast');
+          $(this).text("Enter Server Code");
+        } 
+      }    
+    });
+    $('.choose_server').click(function() {
+      if ($(this).hasClass('disabled')) {
+        $('#server_code_field').slideUp('fast');
+        $('.choose_server').removeClass('disabled');
+      } else {
+        $('#server_code_field').slideDown('fast');
+        $('.choose_server').addClass('disabled');
+        $('#merchant_redeem').addClass('disabled');
+        var currentId = $(this).attr('id');
+        addServerInfo(currentId);
+      }
+    });
+    $('#servers_back_button').click(function() {
+       $('.choose_server').removeClass('disabled');
+       $('#server_code_field').slideUp('slow');
+       $('#merchant_redeem').removeClass('disabled');
+       removeServerInfo();
+    });
+  });
+  
+  function addServerInfo(currentId) {
+    // take the server info and place it in the code submit form
+    a.val(currentId);
+  };
+  
+  function removeServerInfo() {
+    a.val('');
+  };
+  
+  
+</script>

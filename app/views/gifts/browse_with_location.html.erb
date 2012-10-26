@@ -1,0 +1,67 @@
+<h2>
+  <%= logo_for @provider %>
+  <%= @provider.name %>
+  "<%= @provider.description %>"
+  <%= @provider.full_address %>
+</h2>
+<div class="bs-docs-example">
+  <ul id="myTab" class="nav nav-tabs">
+    <li class="active"><a href="#friends" data-toggle="tab">Friends</a></li>
+    <li><a href="#recent" data-toggle="tab">Recents</a></li>
+    <li><a href="#menu" data-toggle="tab">Menu</a></li>
+  </ul>
+  <div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade in active" id="friends">
+      <table class="table listed">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Network</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+          <tr>
+            <td><%= list_icon_for user %></td>
+            <td><%= link_to user.username, '#' %></td>
+            <td><%= user.following?(current_user) ? 'You are following' : 'doesnt follow you' %></td>
+            <td><%= button_to "Select", choose_from_menu_gifts_path(user_id: user.id, provider_id: @provider.id) %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="recent">
+      <p>Recent Activity</p>
+    </div>
+    <div class="tab-pane fade" id="menu">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Name</th>
+            <th>Detail</th>
+            <th>Price</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @menu.each do |m| %>
+            <% item = m[0] %>
+            <% price = m[1] %>
+          <tr>
+            <td><%= image_tag get_category_from_item(item), {:class => 'iconListView'} %></td>
+            <td><%= item.item_name %></td>
+            <td><%= item.detail %></td>
+            <td><%= price %></td>
+            <td><%= button_to "Select", choose_from_contacts_gifts_path(provider_id: @provider.id, item_id: item.id, price: price) %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

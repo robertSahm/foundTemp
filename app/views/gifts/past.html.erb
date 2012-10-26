@@ -1,0 +1,41 @@
+
+
+<table>
+  <thead>
+    <tr>
+      <th><%= link_to 'Buy a Gift for a friend', browse_gifts_path %> |
+      <%= link_to 'New Gifts', gifts_path %></th>
+      <th colspan="2">Drink</th>
+      <th colspan="2">Location</th>
+      <th>Message</th>
+      <th>Redeem Date</th>
+      <th colspan="2">From</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @gifts.each do |gift| %>
+    <tr>
+      <td><%= button_to "Details", detail_gift_path(gift), method: :get %></td>
+      <td colspan="2">
+        <%= image_tag get_category_image(gift), {:class => 'iconListView'} %>
+        <%= gift.quantity %>&nbsp;<%= gift.item_name %>
+      </td>
+      <td colspan="2">
+        <%= logo_from_id_for gift.provider_id %>
+        <%= gift.provider_name %>
+      </td>
+      <td><%= gift.message %></td>
+      <td><%= time_ago_in_words(gift.order.created_at) %>&nbsp;ago</td>
+      <td colspan="2">
+        <%= list_icon_with_id_for gift.giver_id %>
+        <%= gift.giver_name %>
+      </td>
+      <td><%= button_to "Send them a Drink", browse_with_contact_gifts_path(id: gift.giver_id)  %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+

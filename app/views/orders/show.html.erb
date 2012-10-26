@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Redeem:</b>
+  <%= @order.redeem_id %>
+</p>
+
+<p>
+  <b>Gift:</b>
+  <%= @order.gift_id %>
+</p>
+
+<p>
+  <b>Redeem code:</b>
+  <%= @order.redeem_code %>
+</p>
+
+<%= link_to 'Back', orders_merchant_path(@order.provider_id) %>

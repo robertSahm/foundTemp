@@ -1,0 +1,31 @@
+<h1>Listing menu_strings</h1>
+
+<table>
+  <tr>
+    <th>Version</th>
+    <th>Provider</th>
+    <th>Menu</th>
+    <th>Full address</th>
+    <th>Menu</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @menu_strings.each do |menu_string| %>
+  <tr>
+    <td><%= menu_string.version %></td>
+    <td><%= menu_string.provider_id %></td>
+    <td><%= menu_string.menu_id %></td>
+    <td><%= menu_string.full_address %></td>
+    <td><%= menu_string.menu %></td>
+    <td><%= link_to 'Show', menu_string %></td>
+    <td><%= link_to 'Edit', edit_menu_string_path(menu_string) %></td>
+    <td><%= link_to 'Destroy', menu_string, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Menu string', new_menu_string_path %>

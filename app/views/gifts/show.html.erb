@@ -1,0 +1,53 @@
+<!-- Thank you page for after buy -->
+
+<div class="thankYouBuyWrapper">
+  <h2 class="thankYouHeader">Thank You!</h2>
+  <h2>
+    <span class="h2Highlight">To:</span> <%= @gift.receiver_name %>
+  </h2>
+  <h2>
+    <span class="h2Highlight">From: </span><%= @gift.giver_name %>
+  </h2>
+  <h2>
+    <span class="h2Highlight">Drink: </span><%= @gift.quantity %>
+    &nbsp;<%= @gift.item_name %>
+  </h2>
+  <h2>
+    <span class="h2Highlight">Cost: </span>$<%= @gift.quantity.to_i * @gift.price.to_i %>
+  </h2>
+  <h2>
+    <span class="h2Highlight">Location: </span><%= @gift.provider_name %>
+  </h2>
+  <h2>
+    <% if !@gift.message.empty? %>
+    <span class="h2Highlight">Message: </span><%= @gift.message %>
+  </h2>
+  <% end %>
+  <h2>
+    <span class="h2Highlight">
+      Tax: 
+    </span>
+    $ <%= @gift.tax %>
+  </h2>
+  <h2>
+    <span class="h2Highlight">
+      Subtotal:
+    </span>
+    $ <%= @gift.quantity.to_f * @gift.price.to_f + @gift.tax.to_f %>
+  </h2>
+  <h2>
+    <span class="h2Highlight">
+      Tip: 
+    </span>
+    $<%= @gift.tip %>
+  </h2>
+  <h2>
+    <span class="h2Highlight">
+      Total: 
+    </span>
+    $<%= @gift.total %>
+  </h2>
+  <h2>
+    <%= link_to 'Home', home_path %>
+  </h2>
+</div>

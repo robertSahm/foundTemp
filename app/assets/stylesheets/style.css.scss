@@ -1,0 +1,234 @@
+
+//                 ,,        ,,             
+// MMP""MM""YMM   *MM      `7MM             
+// P'   MM   `7    MM        MM             
+//      MM  ,6"Yb. MM,dMMb.  MM  .gP"Ya     
+//      MM 8)   MM MM    `Mb MM ,M'   Yb    
+//      MM  ,pm9MM MM     M8 MM 8M""""""    
+//      MM 8M   MM MM.   ,M9 MM YM.    ,    
+//    .JMML`Moo9^YoP^YbmdP'.JMML.`Mbmmd'                                                                      
+//              ,...    
+//            .d' ""    
+//            dM`       
+//   ,pW"Wq. mMMmm      
+//  6W'   `Wb MM        
+//  8M     M8 MM        
+//  YA.   ,A9 MM        
+//   `Ybmd9'.JMML.
+//                                                                                            
+//    .g8"""bgd                  mm                     mm          
+//  .dP'     `M                  MM                     MM          
+//  dM'       `,pW"Wq.`7MMpMMMbmmMMmm .gP"Ya `7MMpMMMbmmMMmm ,pP"Ybd
+//  MM        6W'   `Wb MM    MM MM  ,M'   Yb  MM    MM MM   8I   `"
+//  MM.       8M     M8 MM    MM MM  8M""""""  MM    MM MM   `YMMMa.
+//  `Mb.     ,YA.   ,A9 MM    MM MM  YM.    ,  MM    MM MM   L.   I8
+//    `"bmmmd' `Ybmd9'.JMML  JMML`Mbmo`Mbmmd'.JMML  JMML`MbmoM9mmmP'
+
+// 1. Fonts
+// 2. Color variables
+// 3. Main Wrapper Layout
+// 4. Header (includes angled corner box-styles for now)
+// 5. User sign in/create account (includes general form/input/button styling)
+// 6. Home Layout (big icons)
+// 7. Gift Panels
+// 8. Detail
+// 9. Bill + Tip Calculation
+
+
+
+
+@import "foundation";
+
+
+
+
+// Text Direction Settings
+$textDirection: ltr; // Controls default global text direction, 'rtl' or 'ltr'
+$defaultFloat: left; // Change this to 'right' for right-to-left languages
+$defaultOpposite: right; // Change this to 'left' for right-to-left languages
+
+// Button Settings
+$buttonRadius: 3px;
+$btnBase: 10px;
+$tinyBtnBase: $btnBase - 5;
+$smallBtnBase: $btnBase - 3;
+$largeBtnBase: $btnBase + 5;
+
+// Typography Settings
+$headerFontFamily: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$headerFontWeight: bold;
+$headerFontColor: #222;
+$bodyFontFamily: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$bodyFontWeight: normal;
+$bodyFontColor: $txtColor;
+
+// Modular Scale
+$baseFontSize: 14px;
+$importantModNum: 44px;
+
+// Top Bar Settings
+$topBarBgColor: #222;
+$topBarHeight: 45px;
+$topBarBtmMargin: 30px;
+$topBarTitleWeight: bold;
+$topBarTitleSize: ms(1);
+$topBarLinkColor: #fff;
+$topBarLinkWeight: bold;
+$topBarLinkSize: ms(0) - 1;
+$topBarDropToggleSize: 5px;
+$topBarSearchWidth: 200px;
+$topBarBreakPoint: 940px;
+$topBarNavToggleSize: 8px;
+
+// Form Settings
+$formSpacing: 12px;
+
+// Tab Settings
+$tabHeight: 40px;
+
+// Nav Bar Settings
+$navBarHeight: 40px;
+$navFlyoutBaseWidth: 250px;
+
+// UI Settings
+$thumbRadius: 3px;
+
+// Tooltip Settings
+$hasTipBorderBottom: dotted 1px #ccc;
+$hasTipFontWeight: bold;
+$hasTipFontColor: #333;
+$hasTipBorderBottomHover: dotted 1px darken($mainColor, 20%);
+$hasTipFontColorHover: $mainColor;
+$tooltipBackgroundColor: #000;
+$tooltipBackgroundOpacity: 0.85;
+$tooltipFontSize: 12;
+$tooltipFontWeight: bold;
+$tooltipFontColor: #fff;
+$tapToCloseFontSize: 10;
+$tapToCloseFontWeight: normal;
+$tapToCloseFontColor: #888;
+$tooltipFontSizeScreenSmall: 14;
+$tooltipBackgroundOpacityScreenSmall: 0.85;
+
+// Colors Settings
+$mainColor: #2ba6cb;
+$secondaryColor: #e9e9e9;
+$alertColor: #c60f13;
+$successColor: #5da423;
+$txtColor: #222;
+$highlightColor: #ffff99;
+$black: #000;
+$white: #fff;
+$shinyEdge: rgba(#fff, .5);
+$darkEdge: rgba(#000, .2);
+$redHot: #FF6865;
+$blueHot: #90D8EE;
+$greenHot: #58F802;
+
+// Grid Settings
+//$rowWidth: 1000px;
+$columnGutter: 30px;
+$totalColumns: 12;
+$mobileTotalColumns: 4;
+
+.wrapper {
+  width: 100%;
+  height: 100% !important;
+}
+
+.row {
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #888;
+}
+
+blockquote {
+  margin: 10px;
+}
+
+h4 {
+}
+
+.columns {
+  padding: 0 25px;
+  height: 100% !important;
+}
+
+.redHot {
+  background-color: $redHot;
+
+}
+
+.blueHot {
+  background-color: $blueHot;
+
+}
+
+.greenHot {
+  background-color: $greenHot;
+}
+
+.leftColumn {
+  height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                       
+//   ,,                                                   
+//   db                   mm                              
+//                        MM                              
+// `7MM ,pP"Ybd  ,pW"Wq.mmMMmm ,pW"Wq.`7MMpdMAo.  .gP"Ya  
+//   MM 8I   `" 6W'   `Wb MM  6W'   `Wb MM   `Wb ,M'   Yb 
+//   MM `YMMMa. 8M     M8 MM  8M     M8 MM    M8 8M"""""" 
+//   MM L.   I8 YA.   ,A9 MM  YA.   ,A9 MM   ,AP YM.    , 
+// .JMMLM9mmmP'  `Ybmd9'  `Mbmo`Ybmd9'  MMbmmd'   `Mbmmd' 
+//                                      MM                
+//                                    .JMML.              
+
+
+.isotope,
+.isotope .isotope-item {
+  /* change duration value to whatever you like */
+  -webkit-transition-duration: 0.5s;
+     -moz-transition-duration: 0.5s;
+      -ms-transition-duration: 0.5s;
+       -o-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+}
+
+.isotope {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+      -ms-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity;
+     -moz-transition-property:    -moz-transform, opacity;
+      -ms-transition-property:     -ms-transform, opacity;
+       -o-transition-property:         top, left, opacity;
+          transition-property:         transform, opacity;
+}
+
+

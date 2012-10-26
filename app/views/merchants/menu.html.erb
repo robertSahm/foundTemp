@@ -1,0 +1,25 @@
+
+<div id="menu">
+  <table >
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Name</th>
+        <th>Detail</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @menu.each do |m| %>
+        <% item = m[0] %>
+        <% price = m[1] %>
+      <tr>
+        <td><%= image_tag get_category_from_item(item), {:class => 'iconListView'} %></td>
+        <td><%= item.item_name %></td>
+        <td><%= item.detail %></td>
+        <td><%= price %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>       
+</div>

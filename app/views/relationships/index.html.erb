@@ -1,0 +1,24 @@
+<h2>Listing relationships</h2>
+<h2>Follower</h2>
+<h2>Followed</h2>
+
+<% @relationships.each do |relationship| %>
+
+<h2>
+  <%= relationship.follower_id %>
+</h2>
+<h2>
+  <%= relationship.followed_id %>
+</h2>
+<h2>
+  <%= link_to 'Show', relationship %>
+</h2>
+<h2><%= link_to 'Edit', edit_relationship_path(relationship) %>
+</h2>
+<h2>
+  <%= link_to 'Destroy', relationship, confirm: 'Are you sure?', method: :delete %>
+</h2>
+
+<% end %>
+
+<%= link_to 'New Relationship', new_relationship_path %>

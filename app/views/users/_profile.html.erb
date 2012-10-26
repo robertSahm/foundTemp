@@ -1,0 +1,20 @@
+
+<%= simple_form_for(@user, :html => { :multipart => true }) do |f| %>
+  <%= f.error_notification %>
+  <%= render 'shared/error_messages' %>
+
+  <div class="form-horizontal">
+    <% if @user.photo %>
+      <%= gravatar_for @user %>
+    <% end %>
+    <%= f.label :upload_new_photo? %>
+    <%= f.file_field :photo %>
+    <%= f.input :name %>
+    <%= f.input :email %>
+  </div>
+  <div class="form-actions">
+    <%= f.submit "Update Account", :class => "btn-primary" %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                                            @user, :class => 'btn' %>
+  </div>
+<% end %>

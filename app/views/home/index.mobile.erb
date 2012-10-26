@@ -1,0 +1,11 @@
+
+<ul>
+  <% for user in @users %>
+    <li class="arrow">
+      <%= link_to h(user.username), user %>
+      <small class="counter"><%= user.username %></small>
+    </li>
+  <% end %>
+</ul>
+
+<ul><li class="arrow"><%= link_to "New Project", new_user_path %></li></ul>

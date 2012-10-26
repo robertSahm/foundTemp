@@ -1,0 +1,37 @@
+<h2>
+  the Gift is for:
+  <%= list_icon_for @receiver %>
+  <%= @receiver.username %>
+  <br />
+  to be redeemed at:
+  <br />
+  <%= logo_for @provider %>
+  <%= @provider.name %>
+  "<%= @provider.description %>"
+  <%= @provider.full_address %>
+</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Name</th>
+      <th>Detail</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @menu.each do |m| %>
+      <% item = m[0] %>
+      <% price = m[1] %>
+    <tr>
+      <td><%= image_tag get_category_from_item(item), {:class => 'iconListView'} %></td>
+      <td><%= item.item_name %></td>
+      <td><%= item.detail %></td>
+      <td><%= price %></td>
+      <td><%= button_to "Select", bill_gifts_path(provider_id: @provider.id, item_id: item.id, price: price, receiver_id: @receiver.id) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

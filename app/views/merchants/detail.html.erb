@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+<div class="borderBox">
+  <h2>Thank You!</h2>
+  <h3>- The Drinkboard Staff</h3>
+
+  <h4><%= time_ago_in_words(@gift.created_at) %>&nbsp;ago</h4>
+  <h4><%= list_icon_for @giver %> <%= @gift.giver_name %><span> bought </span></h4>
+  <h4><%= @gift.quantity %> <%= @gift.item_name %></h4>
+  <h2>For:</h2>
+  <h4><%= list_icon_for @receiver %> <%= @gift.receiver_name %><span></span></h4>
+  <h3><%= logo_from_id_for @gift.provider_id %>
+  @ <%= @gift.provider_name %></h3>
+  <h3>Redeemed on <%= @gift.order.created_at.to_formatted_s(:rfc822)  %>.<br />
+  By server : <%= @server.username %></h3>
+</div>
+<%= link_to "<- Back to Completed Orders", past_orders_merchant_path(@provider) %>

@@ -1,0 +1,52 @@
+<div>
+  <%= list_icon_for @user %>
+  <%= @user.username %>
+</div>
+
+<div class="bs-docs-example">
+  <ul id="myTab" class="nav nav-tabs">
+    <li class="active"><a href="#locations" data-toggle="tab">Locations</a></li>
+    <li><a href="#near_you" data-toggle="tab">Near You</a></li>
+    <li><a href="#near_them" data-toggle="tab">Near Them</a></li>
+    <li><a href="#recent" data-toggle="tab">Recents</a></li>
+    <li><a href="#drinks" data-toggle="tab">Drinks</a></li>
+  </ul>
+  <div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade" id="recent">
+      <p>Recent Activity</p>
+    </div>
+    <div class="tab-pane fade" id="near_you">
+      <p>Locations Near You</p>
+    </div>
+    <div class="tab-pane fade" id="near_them">
+      <p>Locations Near Them</p>
+    </div>
+    <div class="tab-pane fade in active" id="locations">
+      <table class="table listed">
+        <thead>
+          <tr>
+            <th colspan="2">Name</th>
+            <th>Description</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @providers.each do |p| %>
+          <tr>
+             <td colspan="2">
+               <%= logo_for(p) %>
+               <%= link_to p.name, provider_path(p) %>
+             </td>
+             <td><%= p.description %></td>
+             <td><%= button_to "Select", choose_from_menu_gifts_path(provider_id: p.id, user_id: @user.id)%></td>
+          </tr> 
+          <% end %>
+        </tbody>
+      </table>       
+    </div>
+    <div class="tab-pane fade" id="drinks">
+      <p>Menu Items by category - speciatly drinks - each category</p>
+    </div>
+  </div>
+</div>
+

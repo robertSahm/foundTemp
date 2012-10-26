@@ -1,0 +1,10 @@
+<h1 class="redeemButton">
+  <% if gift.status == "redeemed" %>
+    <%= button_to "Details", detail_gift_path(gift), method: :get %>
+  <% else %>
+    <%= button_to "Redeem Now", redeems_path(gift_id: gift.id) %>
+  <% end %>
+</h1>
+<h1 class="sendButton">
+  <%= button_to "Send Them a Drink",  browse_with_contact_gifts_path(id: gift.giver_id) %>
+</h1>

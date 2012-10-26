@@ -1,0 +1,6 @@
+<h1 class="redeemButton">
+    <%= button_to "Details", detail_gift_path(gift), method: :get %>
+</h1>
+<h1 class="sendButton">
+  <%= button_to "Send Them a Drink",  browse_with_contact_gifts_path(id: gift.giver_id) %>
+</h1>

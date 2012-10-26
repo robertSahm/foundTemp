@@ -1,0 +1,35 @@
+<!-- Redeems Index -->
+
+<div class="redeemsIndexWrapper">
+  <h2>
+    <span="h2Highlight">
+    Listing redeems
+    </span>
+  </h2>
+  <h2>Gift</h2>
+  <h2>Reply message</h2>
+  <h2>Redeem code</h2>
+  <% @redeems.each do |redeem| %>
+  <h2>
+    <%= redeem.gift_id %>
+  </h2>
+  <h2>
+    <%= redeem.reply_message %>
+  </h2>
+  <h2>
+    <%= redeem.redeem_code %>
+  </h2>
+  <h2>
+    <%= link_to 'Show', redeem %>
+  </h2>
+  <h2>
+    <%= link_to 'Edit', edit_redeem_path(redeem) %>
+  </h2>
+  <h2>
+    <%= link_to 'Destroy', redeem, confirm: 'Are you sure?', method: :delete %>
+  </h2>
+  <% end %>
+  <h2>
+    <%= link_to 'New Redeem', new_redeem_path %>
+  </h2>
+</div>

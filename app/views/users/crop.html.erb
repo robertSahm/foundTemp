@@ -1,0 +1,18 @@
+<h1>Crop Photo</h1>
+
+<div class="cropPhotoBox">
+  <%= large_photo(@user) %>
+</div>
+
+
+<%= form_for @user do |f| %>
+  <% %w[x y w h].each do |attr| %>
+    <input id="user_crop_<%= attr %>" type="text" size="30" name="user[crop_<%= attr %>]">
+    <br />
+  <% end %>
+  <div class="actions">
+    <%= f.submit "Crop Photo" %>
+  </div>
+  
+<% end %>
+

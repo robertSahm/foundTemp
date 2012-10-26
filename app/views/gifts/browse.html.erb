@@ -1,0 +1,64 @@
+
+    <h2>Buy a Friend a Drink!</h2>
+    <div class="bs-docs-example">
+      <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#friends" data-toggle="tab">Friends</a></li>
+        <li><a href="#recent" data-toggle="tab">Recents</a></li>
+        <li><a href="#locations" data-toggle="tab">Locations</a></li>
+        <li><a href="#drinks" data-toggle="tab">Drinks</a></li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="friends">
+          <table class="table listed">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Network</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @users.each do |user| %>
+              <tr>
+                <td><%= list_icon_for user %></td>
+                <td><%= link_to user.username, user_path(user) %></td>
+                <td><%= user.following?(current_user) ? 'You are following' : 'doesnt follow you' %></td>
+                <td><%= button_to "Select", browse_with_contact_gifts_path(id: user.id) %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="recent">
+          <p>Recent Activity</p>
+        </div>
+        <div class="tab-pane fade" id="locations">
+          <table class="table listed">
+            <thead>
+              <tr>
+                <th colspan="2">Name</th>
+                <th>Description</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @providers.each do |p| %>
+              <tr>
+                  <td colspan="2">
+                    <%= logo_for(p) %>
+                    <%= link_to p.name, provider_path(p) %>
+                  </td>
+                  <td><%= p.description %></td>
+                  <td><%= button_to "Select", browse_with_location_gifts_path(id: p.id)%></td>
+              </tr> 
+              <% end %>
+            </tbody>
+          </table>       
+        </div>
+        <div class="tab-pane fade" id="drinks">
+          <p>Menu Items by category - speciatly drinks - each category</p>
+        </div>
+      </div>
+    </div>
+

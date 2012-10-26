@@ -1,0 +1,39 @@
+<%= stylesheet_link_tag    "mobile"  %>
+
+<div class="cellBackground1 borderRad1"></div>
+<div class="cellBackgroundActive borderRad2"</div>
+<div class="cellContent">  
+  <div class="giftDescription">
+    <div class="backgroundMiniCell"></div>
+    <%= image_tag get_category_image(@gift), {:class => '  iconListView'} %>
+    <h2>
+      <%= @gift.quantity %>
+      <%= @gift.item_name %>
+    </h2>
+  </div>
+  <div class="providerInfo">
+    <div class="backgroundMiniCell"></div>
+    <%= logo_from_id_for @gift.provider_id %>
+    <h2 class="bigAt">@</h2>
+    <h2 class="providerText"><%= @gift.provider_name %></h2>
+  </div>
+   <div class="giverID">
+     <%= list_icon_with_id_for @gift.giver_id %>
+     <h1 class="giverName"><%= @gift.giver_name %></h1>
+  <div class="timeAgo">
+    <h1>
+      <%= time_ago_in_words(@gift.created_at) %>&nbsp;ago
+    </h1>
+  </div>
+  <h3>Download the iPhone App</h3>
+  <%= link_to 'Go To The App Store', '#' %>
+  <h3>Already have the App?</h3>
+  <%= link_to "Launch Drinkboard", '#' %>
+  
+</div>
+<div class="badge1">
+  <span class="badge">*</span>
+</div>
+ <div class="badge2">
+  <h2><%= @gift.message %></h2>
+</div>

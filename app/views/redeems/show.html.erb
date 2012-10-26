@@ -1,0 +1,78 @@
+<!-- Redeem Drink Main Page (enter server code etc.) -->
+
+
+<div class="detailWrapper redeemWrapper">
+  <div class="profileImage">
+    <%= list_icon_for @giver %> 
+  </div>
+  <h2 class="textTop">
+    <span class="h2Highlight"><%= @gift.giver_name %></span>
+    bought you 
+    <%= @gift.quantity %> 
+    <%= @gift.item_name %>
+    <% if @gift.message %>
+    <%= @gift.message %>
+    <% end %>
+  </h2>
+  <h2 class="providerPic">
+    <%= logo_from_id_for @gift.provider_id %>
+  </h2>
+  <h2 class="textRedeem">
+  Redeem them at <br /><span class="h2Highlight"><%= @gift.provider_name %></span>
+  </h2> 
+  <div class="actionsWrapper">
+    <div class="sendDrink">
+    <%= button_to "Send them a Drink", browse_with_contact_gifts_path(id: @gift.giver_id), :class => "btn" %>
+    </div>
+    <div class="saveLater">
+      <%= button_to 'Save for later', gifts_path, method: :get %>
+    </div>
+    <h2 class="textGive">
+      Give this code to your server to redeem:
+    </h2>
+    <h2 class="redeemCode">
+      <a href=""><%= @redeem.redeem_code %></a>
+    </h2>
+<!--     <h2 class="enterCode">
+      Server's phone unavailable? <br />
+      <button type="button" id="merchant_redeem">
+       Enter Server Code
+      </button>
+    </h2> -->
+  </div>
+
+<div id="server_code_field">
+  <%= simple_form_for @order do |f| %>
+  <%= f.error_notification %>
+  <% if @order.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-error">
+      The form contains <%= pluralize(@order.errors.count, "error") %>.
+    </div>
+    <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li>* <%= msg %></li>
+      <% end %>
+      <% if @order.errors[:server_code] %>
+        <li><%= @order.errors[:server_code] %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+  <div class="form-horizontal">
+    <%= f.hidden_field :redeem_id   %>
+    <%= f.hidden_field :gift_id     %>
+    <%= f.hidden_field :provider_id %>
+    <div>
+      <% @server_codes.each do |s| %>
+        <h3><%= s %></h3>
+      <% end %>
+    </div>
+    <%= f.input :server_code, :input_html => { :maxlength => 4 } %>
+  </div>
+  <%= f.submit "Submit Server Code", :class => "btn" %>
+  <% end %>
+
+</div>
+
+ 

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  latitude: 1.5
+  longitude: 1.5
+  provider_id: 1
+  foursquare_id: MyString
+  user_id: 1
+  foursquare_venue_id: MyString
+
+two:
+  latitude: 1.5
+  longitude: 1.5
+  provider_id: 1
+  foursquare_id: MyString
+  user_id: 1
+  foursquare_venue_id: MyString

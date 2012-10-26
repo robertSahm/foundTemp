@@ -1,0 +1,49 @@
+<div id="drinkMap" style="width: 1000px; height: 600px; background: #000; margin: 90px auto;"></div>
+
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBsMYRnmKL11bWrzXZPj1H6bdVDVfNdHA4&sensor=false"></script>
+<script type="text/javascript">
+	var objMap;
+	var ranOnce = false;
+	var getMapData = function(_callback){
+		var tr = objMap.getBounds().getNorthEast();
+		var bl = objMap.getBounds().getSouthWest();
+		$.ajax({
+			url: "/map/boundary",
+			data: {bot_lat: bl.lat(), top_lat: tr.lat(), leftLng: bl.lng(), rightLng: tr.lng(), user_id: 21},   //Faking user_id for now
+			dataType: "json",
+			type: "GET",
+			success: function(json){
+				_callback(json);
+			}
+		});
+	};
+	
+	$(document).ready(function(){
+		var mapOptions = {
+    	center: new google.maps.LatLng(40.723330284008725,-73.91679491467283),
+      zoom: 12,
+			disableDefaultUI: true,
+			zoomControl: true,
+			zoomControlOptions: {
+				style: google.maps.ZoomControlStyle.SMALL
+			},
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+		objMap = new google.maps.Map(document.getElementById("drinkMap"),mapOptions);
+		google.maps.event.addListener(objMap, 'idle', function() {
+			if (ranOnce)	return false;
+			getMapData(function(data){
+				//Loop through the data and place a marker for the providers down and another marker for the person's followed users
+				console.log(data);
+				for (provider in data.providers){
+					new google.maps.Marker({position: new google.maps.LatLng(provider.latitude, provider.longitude), map: objMap});
+				}
+				for (user in data.followedUsers){
+					new google.maps.Marker({position: new google.maps.LatLng(user.latitude, user.longitude), map: objMap});
+				}
+			});
+			ranOnce = true;
+		});
+	});
+</script>

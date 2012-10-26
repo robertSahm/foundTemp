@@ -1,0 +1,19 @@
+<div class="center">
+  <table>
+    <thead>
+      <tr>
+        <th colspan="4">Who's About</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= gravatar_for user %></td>
+          <td><%= link_to user.username, user %></td>
+          <td><%= user.full_address %></td>
+          <td><%= number_to_phone user.phone %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

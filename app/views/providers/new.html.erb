@@ -1,0 +1,113 @@
+<%= form_for(@provider) do |f| %>
+<div class="merchantSignUpObject">
+  <div class="merchantSignUpBackground"></div>
+  <div class="merchantSignUpWrapper">
+    <h1>Basic Info</h1>
+
+
+      <% if @provider.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@provider.errors.count, "error") %> prohibited this provider from being saved:</h2>
+
+          <ul>
+          <% @provider.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.text_field :name ,       placeholder: 'Establishment Name'  %>
+      </div>                                      
+      <div class="field">                         
+        <%= f.text_field :zinger ,     placeholder: 'One Line Zinger'  %>
+      </div>
+      <div class="field">                         
+        <%= f.text_area :description , placeholder: 'Full Description', :rows => 4 %>
+      </div>                                                                          
+      <div class="field">                         
+        <%= f.text_field :address,     placeholder: 'Address' %>
+      </div>                                      
+      <div class="field">                         
+        <%= f.text_field :city ,       placeholder: 'City' %>
+      </div>                                      
+      <div class="field">                         
+        <%= f.text_field :state,       placeholder: 'State' %>
+      </div>                                      
+      <div class="field">                         
+        <%= f.text_field :zip,         placeholder: 'Zip' %>
+      </div>    
+  </div>
+</div>
+
+<div class="merchantSignUpObject merchantSignUpObject2">
+  <div class="merchantSignUpBackground"></div>
+  <div class-"merchantSignUpWrapper">
+    <h1>Bank Information</h1>
+      <div class="field">
+        <%= f.text_field :account_name ,      placeholder: 'Merchant Bank Account Name'  %>
+      </div>                                      
+      <div class="field">                         
+        <%= f.text_field :aba ,               placeholder: 'ABA number'  %>
+      </div>
+      <div class="field">                         
+        <%= f.text_field :routing ,           placeholder: 'Routing Number' %>
+      </div>
+      <div class="field">
+        <%= f.text_field :bank_account_name , placeholder: 'Bank Name'  %>
+      </div>                                                                          
+      <div class="field">                         
+        <%= f.text_field :bank_address,       placeholder: 'Bank Address' %>
+      </div>                                      
+      <div class="field">                         
+        <%= f.text_field :bank_city ,         placeholder: 'Bank City' %>
+      </div>                                      
+      <div class="field">                         
+        <%= f.text_field :bank_state,         placeholder: 'Bank State' %>
+      </div>                                      
+      <div class="field">                         
+        <%= f.text_field :bank_zip,           placeholder: 'Bank Zip' %>
+      </div>    
+  </div>
+</div>
+
+
+<div class="merchantSignUpObject merchantSignUpObject3">
+  <div class="merchantSignUpBackground"></div>
+  <div class-"merchantSignUnBankInfoWrapper">
+    <h1>Photo Upload</h1>
+      <div class="form-horizontal">
+        <h3>Landscape Photo</h3> 
+        <p>width 320px : height 50px</p>
+        <%= f.file_field    :photo %>
+      </div>
+      <div class="form-horizontal">
+        <h3>Logo</h3>
+        <p>square 60px</p>
+        <%= f.hidden_field  :logo_cache %>
+        <%= f.file_field    :logo %>
+      </div>
+      <div class="form-horizontal">
+        <h3>Box Image</h3>
+        <p>square 150px</p>
+        <%= f.hidden_field  :box_cache  %>
+        <%= f.file_field    :box %>
+      </div>
+      <div class="form-horizontal">
+        <h3>App Full Screen Portrait</h3>
+        <p>width 320 px : height 480px</p>
+        <%= f.hidden_field  :portrait_cache %>
+        <%= f.file_field    :portrait %>
+      </div>
+      <hr />
+      <div class="actions">
+        <%= f.submit "Create New Merchant", class: "btn btn-large btn-success" %>
+      </div>
+
+    
+    </div>
+  </div>
+<% end %>
+
+

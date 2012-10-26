@@ -1,0 +1,43 @@
+<div class="detailWrapper">
+	<ul class="actions">
+		<li>
+			<%= button_to "Send them a Drink", 	browse_with_contact_gifts_path(id: @gift.	giver_id)	  %>
+		</li>
+		<li>
+			<%= button_to 'Past Gifts', past_gifts_path, method: :get  %>
+		</li>
+	</ul>
+	<div class='profileImage'>
+		<!-- THIS IS THE ONE!!! -->
+		<%= custom_image_tag(@giver, 150, 150) %>
+	</div>
+	<h2 class="textTop">
+		<%= @gift.giver_name %> 
+		bought you 
+		<%= @gift.quantity %> 
+		<%= @gift.item_name %> 
+		<%= time_ago_in_words(@gift.created_at) %>
+		ago.
+		<% if @gift.message %>
+		Message: <span class="h2Highlight">
+			"<%= @gift.message %>"</span>
+	</h2>
+	<h2 class="textRedeem">
+		Reedem at the provider
+		<span class="h2Highlight">
+			<%= @gift.provider_name %>
+		</span>
+	</h2>
+	<h2 class="providerPic">
+		<%= logo_from_id_for @gift.provider_id %>
+	</h2>
+	<% end %>
+	<div class="thankYou">
+		<h1>
+			Thank You!
+		</h1>
+		<h2>
+			- The Drinkboard Staff
+		</h2>
+	</div>
+</div>

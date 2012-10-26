@@ -1,0 +1,27 @@
+#Define application variables here. The initializer file, app_config.rb will store this hash into APP_CONFIG.
+#To call facebook, you can write APP_CONFIG[:facebook][:key]
+#Note that we will construct the client-facing URL they need to click in order to log in with Facebook in the initializer file.
+development:
+  facebook:
+    key: "387466064659961"
+    secret: "8223b82d2c408940c87dac05a233b44c"
+    redirect: "/facebook/oauth"
+    permissions: "email"
+    state: "lasdv9239054823t9r8hose81u32q40ewdrt0fg9d0aowil35haotesg"     #arbitrary but unique string
+  foursquare:
+    key: "FJ341N31WUYELMVXQFP30PB5EOB4U5OZK5IH2VNAZG3H3GVJ"
+    secret: "KAO5HATIMIBTQ2B2QFAMPKX02W53SACABOOI0NNZNSGXB5P4"
+    redirect: "/foursquare/oauth"
+  baseUrl: "http://0.0.0.0:3000"
+production:
+  facebook:
+    key: "428139010570600"
+    secret: "0c8a53b524ca68c8cd102771d9b11654"
+    redirect: "/facebook/oauth"
+    permissions: "email"
+    state: "lasdt95haoe92390540ao1u32q4w823tv8horwdrt0fg9dil3se80esg"     #arbitrary but unique string
+  foursquare:
+    key: ""
+    secret: ""
+    redirect: "/foursquare/oauth"
+  baseUrl: "http://www.drinkboard.com"
